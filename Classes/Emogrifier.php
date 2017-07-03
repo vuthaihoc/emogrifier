@@ -986,9 +986,12 @@ class Emogrifier
      */
     private function existsMatchForCssSelector(\DOMXPath $xPath, $cssSelector)
     {
-        $nodesMatchingSelector = $xPath->query($this->translateCssToXpath($cssSelector));
-
-        return $nodesMatchingSelector !== false && $nodesMatchingSelector->length !== 0;
+    	try{
+		    $nodesMatchingSelector = $xPath->query($this->translateCssToXpath($cssSelector));
+		    return $nodesMatchingSelector !== false && $nodesMatchingSelector->length !== 0;
+	    }catch (\ErrorException $ex){
+    		return false;
+	    }
     }
 
     /**
